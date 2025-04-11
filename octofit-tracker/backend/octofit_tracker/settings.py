@@ -81,8 +81,10 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": "octofit_db",
-        "HOST": "localhost",
-        "PORT": 27017,
+        "ENFORCE_SCHEMA": False,  # Optional, set to True if schema validation is required
+        "CLIENT": {
+            "host": "mongodb://localhost:27017/",
+        },
     }
 }
 
