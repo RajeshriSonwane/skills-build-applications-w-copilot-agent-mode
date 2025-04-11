@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.views import APIView
 from .models import User, Team, Activity, Leaderboard, Workout
 from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
 from rest_framework.decorators import api_view
@@ -15,41 +16,51 @@ def api_root(request, format=None):
         'workouts': reverse('workout-list', request=request, format=format),
     })
 
-class UserList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class UserList(APIView):
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class TeamList(generics.ListCreateAPIView):
-    queryset = Team.objects.all()
-    serializer_class = TeamSerializer
+class TeamList(APIView):
+    def get(self, request):
+        teams = Team.objects.all()
+        serializer = TeamSerializer(teams, many=True)
+        return Response(serializer.data)
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
-class ActivityList(generics.ListCreateAPIView):
-    queryset = Activity.objects.all()
-    serializer_class = ActivitySerializer
+class ActivityList(APIView):
+    def get(self, request):
+        activities = Activity.objects.all()
+        serializer = ActivitySerializer(activities, many=True)
+        return Response(serializer.data)
 
 class ActivityDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-class LeaderboardList(generics.ListCreateAPIView):
-    queryset = Leaderboard.objects.all()
-    serializer_class = LeaderboardSerializer
+class LeaderboardList(APIView):
+    def get(self, request):
+        leaderboard = Leaderboard.objects.all()
+        serializer = LeaderboardSerializer(leaderboard, many=True)
+        return Response(serializer.data)
 
 class LeaderboardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Leaderboard.objects.all()
     serializer_class = LeaderboardSerializer
 
-class WorkoutList(generics.ListCreateAPIView):
-    queryset = Workout.objects.all()
-    serializer_class = WorkoutSerializer
+class WorkoutList(APIView):
+    def get(self, request):
+        workouts = Workout.objects.all()
+        serializer = WorkoutSerializer(workouts, many=True)
+        return Response(serializer.data)
 
 class WorkoutDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Workout.objects.all()
